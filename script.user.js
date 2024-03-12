@@ -33,7 +33,7 @@ const page = {
         }
 
         for (i in page.getList()) {
-            if (!page.listName(page.getList()[i]).includes(filterInput.value)){
+            if (!page.listName(page.getList()[i]).includes(filterInput.value.toLowerCase())){
                 page.getList()[i].style.display = "none";
                 console.log(page.getList()[i])
 
