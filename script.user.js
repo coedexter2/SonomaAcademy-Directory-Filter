@@ -9,6 +9,8 @@
 // ==/UserScript==
 const page = {
     init: function () {
+        const gridUl = document.querySelector("#content_1903384 > div > div > ul");
+        gridUl.style.gridTemplateColumns = "18% 18% 18% 18% 18%";
         page.filterSelector();
         console.log("1")
     },
@@ -16,21 +18,20 @@ const page = {
     filterSelector: function () {
         const filterLocation = document.querySelector("#content_1903384");
         const filterInput = document.createElement("input");
-        const filterButton = document.createElement("input");
-
         filterInput.setAttribute("type", "text");
         filterInput.setAttribute("id", "filterInput")
-        filterButton.setAttribute("type", "button");
-        filterButton.setAttribute("value", "Filter");
 
-        filterLocation.prepend(filterButton);
         filterLocation.prepend(filterInput);
 
-        filterButton.addEventListener("click", page.filter);
         console.log("2");
+        filterInput.addEventListener("input", page.filter);
     },
 
     filter: function(){
+        for (i in page.getList()) {
+            page.getList()[i].style.display = "grid";
+        }
+
         for (i in page.getList()) {
             if (!page.listName(page.getList()[i]).includes(filterInput.value)){
                 page.getList()[i].style.display = "none";
@@ -48,7 +49,7 @@ const page = {
 
     listName: function (input) {
         //console.log(input.children[1].innerHTML);
-        return input.children[1].innerHTML;
+        return input.children[1].innerHTML.toLowerCase();
     },
 
 }
